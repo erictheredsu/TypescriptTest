@@ -155,4 +155,66 @@ let p: Named;
 // OK, because of structural typing although Person doesn't implement Named
 p = new Person();
 
+//advanced type, TypeGuards and 
+
+interface Bird {
+    fly();
+    layEggs();
+}
+
+interface Fish {
+    swim();
+    layEggs();
+}
+
+function getSmallPet(isFish : boolean): Fish | Bird {
+    if(isFish)
+    {
+        return <Fish>{};
+    }
+    else
+    {
+        return <Bird>{};
+    }
+}
+
+// let pet = getSmallPet(true);
+//pet.layEggs(); // okay
+//pet.swim();    // errors
+
+// if ((<Fish>pet).swim) {
+//     (<Fish>pet).swim();
+// }
+// else {
+//     (<Bird>pet).fly();
+// }
+
+//custom type guard
+// function isFish(pet : Fish | Bird) : pet is Fish{
+//     return (<Fish>pet).swim !== undefined;
+// }
+
+// if (isFish(pet)) {
+//     pet.swim();
+// }
+// else {
+//     pet.fly();
+// }
+
+
+//symbol need change "target": "es6" in tsconfig.json
+let s1 = Symbol();
+let s2 = Symbol();
+console.log(s1 === s2); //false
+
+let obj = {};
+obj[s1] = 'aaa';
+obj[s2] = 2;
+
+let keyarray = Object.keys(obj);
+console.log(obj[s1]);
+console.log(Reflect.ownKeys(obj))
+console.log(JSON.stringify(obj));
+
+
 console.log('end');
